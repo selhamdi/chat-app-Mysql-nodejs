@@ -5,8 +5,11 @@ import axios from "axios";
 import "./sign-up.styles.scss";
 
 class SignUp extends React.Component {
+   // constructor est une méthode qui est utilisée pour créer et initialiser un objet 
   constructor(props) {
+        // Il est utilisé pour appeler le constructeur de la classe parent 
     super(props);
+    // Utilisez toujours la méthode setState() pour modifier l'objet d'état,
 
     this.state = {
       email: "",
@@ -15,8 +18,9 @@ class SignUp extends React.Component {
     };
   }
   handleChange = event => {
+    //  méthode est appelée déstructuration
     const { name, value } = event.target;
-
+    // Utilisez toujours la méthode setState() pour modifier l'objet d'état
     this.setState({ [name]: value });
   };
 

@@ -5,9 +5,11 @@ import axios from "axios";
 import "./sign-in.styles.scss";
 
 class SignIn extends React.Component {
+  // constructor est une méthode qui est utilisée pour créer et initialiser un objet 
   constructor() {
+    // Il est utilisé pour appeler le constructeur de la classe parent 
     super();
-
+    // Utilisez toujours la méthode setState() pour modifier l'objet d'état,
     this.state = {
       email: "",
       password: ""
@@ -15,8 +17,9 @@ class SignIn extends React.Component {
   }
 
   handleChange = event => {
+    // Cette méthode est appelée déstructuration
     const { name, value } = event.target;
-
+    // Utilisez toujours la méthode setState() pour modifier l'objet d'état
     this.setState({ [name]: value });
   };
 

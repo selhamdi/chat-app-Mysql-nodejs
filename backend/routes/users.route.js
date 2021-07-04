@@ -6,10 +6,10 @@ const router = express.Router();
 
 //Sign-up Route
 router.post("/signup", async (req, res) => {
-  //destructuring
+
   let { email } = req.body;
 
-  //ready to set lower case email to database
+  // prêt à mettre l'email en minuscules dans la base de données
   email = email.toLowerCase();
 
   //Hashing passwords with bcrypt
@@ -17,22 +17,20 @@ router.post("/signup", async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   console.log(salt);
 
-  //One object instead of SET (?, ?)
+
   const userData = {
     email,
     password: hashedPassword
   };
 
-  //Storing data into table users
+  //Stockage des données dans table
   pool.query("INSERT INTO users SET ?", userData, err => {
     if (err) {
       res.status(400).json({
-        status: "failure",
         message: "Unable to add user"
       });
     } else {
       res.status(200).json({
-        status: "success",
         message: "User added successfully"
       });
     }
@@ -41,10 +39,9 @@ router.post("/signup", async (req, res) => {
 
 //Sign-in Route
 router.post("/signin", (req, res) => {
-  //destructuring
   let { email, password } = req.body;
 
-  //in case user enter uppercase
+  // prêt à mettre l'email en minuscules dans la base de données
   email = email.toLowerCase();
 
   //query out the user from the email
@@ -52,10 +49,10 @@ router.post("/signin", (req, res) => {
     "SELECT * FROM users where email = ?",
     email,
 
-    //have to pass async here for bcrypt
+    //doit passer async ici pour bcrypt
     async (err, rows) => {
       console.log(rows);
-      //must finish the promise here before proceeding any further otherwise any passwords would return true
+      
       if (await bcrypt.compare(password, rows[0].password)) {
         console.log("Successful");
         res.status(200).json({
